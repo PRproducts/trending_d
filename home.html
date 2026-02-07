@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trending Deals</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f6f8;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 18px;
+}
+
+.search {
+  width: 100%;
+  max-width: 420px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 22px;
+  outline: none;
+  font-size: 14px;
+}
+
+.search:focus {
+  border-color: #2874f0;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  text-align: left;
+  transition: 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card h3 {
+  font-size: 15px;
+  margin: 10px 0;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.buttons a {
+  flex: 1;
+  padding: 11px;
+  text-decoration: none;
+  color: white;
+  border-radius: 9px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.amazon {
+  background: #ff9900;
+}
+
+.flipkart {
+  background: #2874f0;
+}
+
+.redirect-text {
+  font-size: 11px;
+  color: #888;
+  margin-top: 7px;
+}
+
+.footer {
+  font-size: 11px;
+  color: #777;
+  margin-top: 28px;
+}
+
+.no-result {
+  font-size: 14px;
+  color: #888;
+}
+
+@media (max-width: 480px) {
+  .buttons {
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1 class="title">🔥 Trending Online Deals</h1>
+  <p class="subtitle">Discover products from trusted online stores</p>
+
+  <input
+    type="text"
+    placeholder="Search product..."
+    class="search"
+    id="searchInput"
+  />
+
+  <div class="product-list" id="productList"></div>
+
+  <footer class="footer">
+    Disclosure: Some links on this page are affiliate links. I may earn a
+    commission if you purchase through them at no extra cost to you.
+  </footer>
+</div>
+
+<script>
+const products = [
+  {
+    id: 1,
+    name: "Wireless Bluetooth Earbuds",
+    image: "download.jpg",
+    amazon: "https://www.amazon.in/your-affiliate-link",
+    flipkart: "https://www.flipkart.com/your-affiliate-link",
+  },
+  {
+    id: 2,
+    name: "Smart Watch",
+    image: "download.jpg",
+    amazon: "https://www.amazon.in/your-affiliate-link",
+    flipkart: "https://www.flipkart.com/your-affiliate-link",
+  },
+  {
+    id: 3,
+    name: "Gaming Mouse",
+    image: "download.jpg",
+    amazon: "https://www.amazon.in/your-affiliate-link",
+    flipkart: "https://www.flipkart.com/your-affiliate-link",
+  },
+  {
+    id: 4,
+    name: "Noise Cancelling Headphones",
+    image: "download.jpg",
+    amazon: "https://www.amazon.in/your-affiliate-link",
+    flipkart: "https://www.flipkart.com/your-affiliate-link",
+  },
+];
+
+const productList = document.getElementById("productList");
+const searchInput = document.getElementById("searchInput");
+
+function renderProducts(list) {
+  productList.innerHTML = "";
+
+  if (list.length === 0) {
+    productList.innerHTML = `<p class="no-result">No product found</p>`;
+    return;
+  }
+
+  list.forEach(product => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" loading="lazy"/>
+      <h3>${product.name}</h3>
+      <div class="buttons">
+        <a href="${product.amazon}" target="_blank" class="amazon">Check Price on Amazon</a>
+        <a href="${product.flipkart}" target="_blank" class="flipkart">Check Price on Flipkart</a>
+      </div>
+      <p class="redirect-text">
+        You will be redirected to the official seller website.
+      </p>
+    `;
+
+    productList.appendChild(card);
+  });
+}
+
+renderProducts(products);
+
+searchInput.addEventListener("input", (e) => {
+  const value = e.target.value.toLowerCase();
+
+  const filtered = products.filter(product =>
+    product.name.toLowerCase().includes(value)
+  );
+
+  renderProducts(filtered);
+});
+</script>
+
+</body>
+</html>
