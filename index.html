@@ -83,6 +83,8 @@ body {
 
 .buttons {
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: 8px;
 }
@@ -103,6 +105,12 @@ body {
 
 .flipkart {
   background: #2874f0;
+}
+.shopsy{
+  background: rgb(156, 232, 43);
+}
+.ajio{
+  background: #a46ffb;
 }
 
 .redirect-text {
@@ -196,6 +204,16 @@ const products = [
     image: "images/pride.jpeg",
     amazon: "https://amzn.in/d/0g9wkef5",
     flipkart: "https://fkrt.co/D27EB8",
+    shopsy:"https://extp.in/XJSQBM", 
+  },
+    {
+    id: 2,
+    name: "EAR RINGS",
+    image: "images/earring.jpeg",
+    amazon: "https://amzn.in/d/04B6LFwU",
+    shopsy: "https://extp.in/NhHsDM",
+    flipkart: "https://fkrt.co/W9lIT9",
+    ajio:"https://ajiio.co/soVvHA",
   },
 
 ];
@@ -224,6 +242,8 @@ function renderProducts(list) {
       <h3>${product.name}</h3>
       <div class="buttons">
         <a href="${product.amazon}" target="_blank" class="amazon" >Check Price on Amazon</a>
+        <a href="${product.shopsy}" target="_blank" class="shopsy" >Check Price on Shopsy</a>
+        <a href="${product.ajio}" target="_blank" class="ajio" >Check Price on Ajio</a>
         <a href="${product.flipkart}" target="_blank" class="flipkart">Check Price on Flipkart</a>
       </div>
       <p class="redirect-text">
