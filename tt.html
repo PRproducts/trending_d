@@ -18,63 +18,7 @@ overflow-x:hidden;
 color:white;
 }
 
-/* ===== POPUP ===== */
-.popup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.7);
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:1000;
-animation:fadeIn 0.5s ease;
-}
-
-.popup-content{
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(15px);
-padding:40px;
-border-radius:20px;
-text-align:center;
-width:350px;
-box-shadow:0 0 30px rgba(0,255,255,0.4);
-animation:scaleUp 0.4s ease;
-}
-
-.popup-content h3{
-margin-bottom:15px;
-}
-
-.popup-content p{
-font-size:14px;
-margin-bottom:20px;
-opacity:0.8;
-}
-
-.popup-content button{
-padding:10px 25px;
-border:none;
-border-radius:20px;
-background:linear-gradient(45deg,#00c6ff,#0072ff);
-color:white;
-font-weight:bold;
-cursor:pointer;
-}
-
-@keyframes fadeIn{
-from{opacity:0;}
-to{opacity:1;}
-}
-
-@keyframes scaleUp{
-from{transform:scale(0.8);opacity:0;}
-to{transform:scale(1);opacity:1;}
-}
-
-/* ===== OCEAN ===== */
+/* ===== OCEAN LAYERS ===== */
 .ocean-layer{
 position:fixed;
 top:0;
@@ -87,26 +31,30 @@ transition:transform 0.2s ease-out;
 
 .water1{
 background:linear-gradient(180deg,#003366,#001f3f,#000c1f);
+z-index:-3;
 }
 
 .water2{
 background:radial-gradient(circle at 30% 30%,rgba(0,255,255,0.15),transparent 60%);
 mix-blend-mode:screen;
+z-index:-2;
 }
 
 .water3{
 background:radial-gradient(circle at 70% 70%,rgba(0,200,255,0.2),transparent 60%);
 mix-blend-mode:overlay;
+z-index:-1;
 }
 
 /* ===== BUBBLES ===== */
 .bubble{
 position:fixed;
 bottom:-100px;
+width:20px;
+height:20px;
 background:rgba(255,255,255,0.3);
 border-radius:50%;
-animation:rise linear infinite;
-z-index:-1;
+animation:rise 10s linear infinite;
 }
 
 @keyframes rise{
@@ -118,8 +66,8 @@ z-index:-1;
 .plant{
 position:fixed;
 bottom:0;
-width:120px;
-height:250px;
+width:100px;
+height:200px;
 background:linear-gradient(to top,#013220,#014d26);
 border-radius:50%;
 filter:blur(2px);
@@ -136,8 +84,6 @@ to{transform:rotate(3deg);}
 .container{
 padding:40px;
 text-align:center;
-position:relative;
-z-index:2;
 }
 
 h1{
@@ -154,123 +100,79 @@ outline:none;
 margin-bottom:30px;
 }
 
-/* ===== PRODUCT GRID ===== */
 .product-grid{
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
-gap:30px;
+gap:20px;
 }
 
-/* ===== CARD ===== */
 .card{
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(12px);
-border-radius:20px;
-padding:20px;
-width:320px;
-height:520px;
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 0 25px rgba(0,255,255,0.25);
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+border-radius:15px;
+padding:15px;
+width:250px;
 transition:0.3s;
+box-shadow:0 0 20px rgba(0,255,255,0.3);
 }
 
 .card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 35px rgba(0,255,255,0.6);
+transform:scale(1.05);
+box-shadow:0 0 30px rgba(0,255,255,0.6);
 }
 
 .card img{
 width:100%;
-height:220px;
-object-fit:cover;
-border-radius:15px;
-margin-bottom:15px;
-}
-
-.buttons{
-width:100%;
-display:flex;
-flex-direction:column;
-gap:10px;
+border-radius:10px;
 }
 
 .buttons button{
-padding:10px;
+margin:5px;
+padding:8px;
 border:none;
 border-radius:20px;
 cursor:pointer;
 background:linear-gradient(45deg,#00c6ff,#0072ff);
 color:white;
-font-weight:bold;
+transition:0.3s;
+}
+
+.buttons button:hover{
+transform:scale(1.1);
 }
 
 .redirect-text{
 font-size:12px;
-opacity:0.7;
 margin-top:10px;
-}
-
-.footer{
-margin-top:50px;
-font-size:12px;
 opacity:0.8;
 }
 
-/* ===== SIDE FISH ===== */
-.side-fish{
-position:fixed;
-top:50%;
-transform:translateY(-50%);
-width:180px;
-z-index:4;
-mix-blend-mode:screen;
-pointer-events:none;
+.footer{
+margin-top:40px;
+padding:20px;
+font-size:13px;
+background:rgba(0,0,0,0.4);
 }
-
-.left-fish{
-left:20px;
-}
-
-.right-fish{
-right:20px;
-transform:translateY(-50%) scaleX(-1);
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- POPUP -->
-<div class="popup" id="popup">
-<div class="popup-content">
-<h3>Save Your Time. Buy Anywhere.</h3>
-<p>Compare the same product across multiple trusted platforms in seconds.</p>
-<button onclick="closePopup()">Explore Now</button>
-</div>
-</div>
-
-<!-- OCEAN -->
+<!-- OCEAN BACKGROUND -->
 <div class="ocean-layer water1"></div>
 <div class="ocean-layer water2"></div>
 <div class="ocean-layer water3"></div>
 
-<!-- PLANTS -->
-<div class="plant" style="left:5%;"></div>
-<div class="plant" style="left:85%;"></div>
-
-<!-- FISH -->
-<img src="images/fish2.gif" class="side-fish left-fish">
-<img src="images/fish2.gif" class="side-fish right-fish">
+<!-- Plants -->
+<div class="plant" style="left:10%;"></div>
+<div class="plant" style="left:80%; height:250px;"></div>
 
 <div class="container">
 <h1>🌊 Ocean Store</h1>
-<input id="searchInput" type="text" placeholder="Search product...">
-<div id="productList" class="product-grid"></div>
+<input type="text" id="searchInput" placeholder="Search product...">
+
+<div class="product-grid" id="productList"></div>
 
 <footer class="footer">
 Disclosure: Some links on this page are affiliate links. I may earn a commission if you purchase through them at no extra cost to you.
@@ -278,26 +180,7 @@ Disclosure: Some links on this page are affiliate links. I may earn a commission
 </div>
 
 <script>
-
-/* CLOSE POPUP */
-function closePopup(){
-document.getElementById("popup").style.display="none";
-}
-
-/* BUBBLES */
-for(let i=0;i<25;i++){
-let bubble=document.createElement("div");
-bubble.className="bubble";
-bubble.style.left=Math.random()*100+"%";
-let size=10+Math.random()*25;
-bubble.style.width=size+"px";
-bubble.style.height=size+"px";
-bubble.style.animationDuration=(6+Math.random()*10)+"s";
-document.body.appendChild(bubble);
-}
-
-/* PRODUCTS */
-const products=[
+const products = [
 {
 id:1,
 name:"PRIDE STORE",
@@ -348,8 +231,7 @@ productList.innerHTML="";
 list.forEach(product=>{
 let buttonsHTML="";
 for(let store in product.links){
-buttonsHTML+=`
-<button onclick="goToLink('${product.links[store]}')">
+buttonsHTML+=`<button onclick="goToLink('${product.links[store]}')">
 Check Price on ${storeNames[store]}
 </button>`;
 }
@@ -357,12 +239,10 @@ Check Price on ${storeNames[store]}
 const card=document.createElement("div");
 card.className="card";
 card.innerHTML=`
-<img src="${product.image}">
+<img src="${product.image}" alt="${product.name}">
 <h3>${product.name}</h3>
 <div class="buttons">${buttonsHTML}</div>
-<p class="redirect-text">
-You will be redirected to the official seller website.
-</p>
+<p class="redirect-text">You will be redirected to the official seller website.</p>
 `;
 productList.appendChild(card);
 });
@@ -380,16 +260,27 @@ function goToLink(url){
 window.open(url,"_blank");
 }
 
-/* PARALLAX */
+/* ===== CURSOR WATER MOVEMENT ===== */
 const layers=document.querySelectorAll(".ocean-layer");
+
 document.addEventListener("mousemove",(e)=>{
 const x=(e.clientX/window.innerWidth - 0.5)*40;
 const y=(e.clientY/window.innerHeight - 0.5)*40;
+
 layers.forEach((layer,index)=>{
 layer.style.transform=`translate(${x*(index+1)}px, ${y*(index+1)}px)`;
 });
 });
 
+/* ===== BUBBLES AUTO GENERATION ===== */
+for(let i=0;i<20;i++){
+let bubble=document.createElement("div");
+bubble.className="bubble";
+bubble.style.left=Math.random()*100+"%";
+bubble.style.width=bubble.style.height=(10+Math.random()*20)+"px";
+bubble.style.animationDuration=(5+Math.random()*10)+"s";
+document.body.appendChild(bubble);
+}
 </script>
 
 </body>
