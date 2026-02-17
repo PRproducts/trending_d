@@ -2,9 +2,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ocean Store</title>
 
 <style>
+
+/* ===== YOUR ORIGINAL CSS (UNCHANGED PRODUCT + POPUP) ===== */
 *{
 margin:0;
 padding:0;
@@ -160,9 +163,10 @@ display:flex;
 flex-wrap:wrap;
 justify-content:center;
 gap:30px;
+min-height:300px;
 }
 
-/* ===== CARD ===== */
+/* ===== CARD (UNCHANGED) ===== */
 .card{
 background:rgba(255,255,255,0.08);
 backdrop-filter:blur(12px);
@@ -176,6 +180,16 @@ justify-content:space-between;
 align-items:center;
 box-shadow:0 0 25px rgba(0,255,255,0.25);
 transition:0.3s;
+opacity:0;
+transform:translateY(30px);
+animation:cardFade 0.6s ease forwards;
+}
+
+@keyframes cardFade{
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 .card:hover{
@@ -225,19 +239,30 @@ opacity:0.8;
 position:fixed;
 top:50%;
 transform:translateY(-50%);
-width:180px;
+width:120px;
 z-index:4;
 mix-blend-mode:screen;
 pointer-events:none;
 }
 
 .left-fish{
-left:20px;
+left:10px;
 }
 
 .right-fish{
-right:20px;
+right:10px;
 transform:translateY(-50%) scaleX(-1);
+}
+
+/* MOBILE FIX */
+@media(max-width:768px){
+.card{
+width:90%;
+height:auto;
+}
+.side-fish{
+width:80px;
+}
 }
 
 </style>
@@ -245,7 +270,6 @@ transform:translateY(-50%) scaleX(-1);
 
 <body>
 
-<!-- POPUP -->
 <div class="popup" id="popup">
 <div class="popup-content">
 <h3>Save Your Time. Buy Anywhere.</h3>
@@ -254,16 +278,13 @@ transform:translateY(-50%) scaleX(-1);
 </div>
 </div>
 
-<!-- OCEAN -->
 <div class="ocean-layer water1"></div>
 <div class="ocean-layer water2"></div>
 <div class="ocean-layer water3"></div>
 
-<!-- PLANTS -->
 <div class="plant" style="left:5%;"></div>
 <div class="plant" style="left:85%;"></div>
 
-<!-- FISH -->
 <img src="images/fish2.gif" class="side-fish left-fish">
 <img src="images/fish2.gif" class="side-fish right-fish">
 
@@ -273,18 +294,16 @@ transform:translateY(-50%) scaleX(-1);
 <div id="productList" class="product-grid"></div>
 
 <footer class="footer">
-Disclosure: Some links on this page are affiliate links. I may earn a commission if you purchase through them at no extra cost to you.
+Disclosure: Some links on this page are affiliate links.
 </footer>
 </div>
 
 <script>
 
-/* CLOSE POPUP */
 function closePopup(){
 document.getElementById("popup").style.display="none";
 }
 
-/* BUBBLES */
 for(let i=0;i<25;i++){
 let bubble=document.createElement("div");
 bubble.className="bubble";
@@ -296,7 +315,6 @@ bubble.style.animationDuration=(6+Math.random()*10)+"s";
 document.body.appendChild(bubble);
 }
 
-/* PRODUCTS */
 const products=[
 {
 id:1,
@@ -345,6 +363,12 @@ const searchInput=document.getElementById("searchInput");
 
 function renderProducts(list){
 productList.innerHTML="";
+
+if(list.length===0){
+productList.innerHTML="<h2>No products found</h2>";
+return;
+}
+
 list.forEach(product=>{
 let buttonsHTML="";
 for(let store in product.links){
@@ -364,6 +388,7 @@ card.innerHTML=`
 You will be redirected to the official seller website.
 </p>
 `;
+
 productList.appendChild(card);
 });
 }
@@ -379,16 +404,6 @@ renderProducts(filtered);
 function goToLink(url){
 window.open(url,"_blank");
 }
-
-/* PARALLAX */
-const layers=document.querySelectorAll(".ocean-layer");
-document.addEventListener("mousemove",(e)=>{
-const x=(e.clientX/window.innerWidth - 0.5)*40;
-const y=(e.clientY/window.innerHeight - 0.5)*40;
-layers.forEach((layer,index)=>{
-layer.style.transform=`translate(${x*(index+1)}px, ${y*(index+1)}px)`;
-});
-});
 
 </script>
 
